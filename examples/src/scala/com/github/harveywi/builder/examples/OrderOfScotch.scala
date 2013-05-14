@@ -23,7 +23,11 @@ object OrderOfScotch {
   case object Tall extends Glass
   case object Tulip extends Glass
 
-  case class OrderOfScotch(val brand: String, val mode: Preparation, val isDouble: Boolean, val glass: Option[Glass])
+  case class OrderOfScotch(
+    val brand: String,
+    val mode: Preparation,
+    val isDouble: Boolean,
+    val glass: Option[Glass])
   object OrderOfScotch extends HasBuilder[OrderOfScotch] {
     object Brand extends Param[String]
     object Mode extends Param[Preparation]
@@ -45,15 +49,15 @@ object OrderOfScotch {
 
     // Point-free version of the above
     val order2 = (OrderOfScotch.builder
-      set(Brand, "Takes")
-      set(IsDouble, true)
-      set(Glass, Some(Tall))
-      set(Mode, OnTheRocks)
-      build())
+      set (Brand, "Takes")
+      set (IsDouble, true)
+      set (Glass, Some(Tall))
+      set (Mode, OnTheRocks)
+      build ())
 
     assert(order1 == OrderOfScotch("Takes", OnTheRocks, true, Some(Tall)),
       "Time to get out the scotch...")
-    
+
     assert(order1 == order2, "Traditional and point-free build results should be identical")
   }
 }
