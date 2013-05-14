@@ -5,7 +5,7 @@ shapeless-builder is a [Scala](http://www.scala-lang.org) library which
 takes advantage of [Miles Sabin's](https://github.com/milessabin)
 [shapeless](https://github.com/milessabin/shapeless) library to endow case classes
 with method-chaining builders (essentially the builder design pattern).  These
-builders are type-safe, and the Scala type system is used to ensure that
+builders are type-safe and purely functional.  The Scala type system is used to ensure that
 code attempting to build incomplete objects will not compile.
 
 This work was inspired by a [blog post](http://blog.rafaelferreira.net/2008/07/type-safe-builder-pattern-in-scala.html) 
@@ -66,9 +66,9 @@ import shapeless._
 /**
  * Example demonstrating the builder pattern for a shot of scotch (see
  * http://blog.rafaelferreira.net/2008/07/type-safe-builder-pattern-in-scala.html).
- * 
+ *
  * Huge thanks to Rafael Ferreira for providing this use case!
- * 
+ *
  * @author William Harvey
  */
 object OrderOfScotch {
@@ -89,7 +89,7 @@ object OrderOfScotch {
     object Mode extends Param[Preparation]
     object IsDouble extends Param[Boolean]
     object Glass extends OptParam[Option[Glass]](None)
-    
+
     // Establish HList <=> OrderOfScotch isomorphism
     val isoContainer = createIsoContainer(apply _, unapply _)
     // Establish Param[_] <=> constructor parameter correspondence
@@ -99,9 +99,22 @@ object OrderOfScotch {
 
   def main(args: Array[String]): Unit = {
     import OrderOfScotch._
-    val order = OrderOfScotch.builder set(Brand, "Takes") set(IsDouble, true) set(Glass, Some(Tall)) set(Mode, OnTheRocks) build()
+
+    val order1 = OrderOfScotch.builder.set(Brand, "Takes").set(IsDouble, true).
+      set(Glass, Some(Tall)).set(Mode, OnTheRocks).build()
+
+    // Point-free version of the above
+    val order2 = (OrderOfScotch.builder
+      set(Brand, "Takes")
+      set(IsDouble, true)
+      set(Glass, Some(Tall))
+      set(Mode, OnTheRocks)
+      build())
+
+    assert(order1 == OrderOfScotch("Takes", OnTheRocks, true, Some(Tall)),
+      "Time to get out the scotch...")
     
-    assert(order == OrderOfScotch("Takes", OnTheRocks, true, Some(Tall)), "Time to get out the scotch...")
+    assert(order1 == order2, "Traditional and point-free build results should be identical")
   }
 }
 ```
