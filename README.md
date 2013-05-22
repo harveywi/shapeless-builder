@@ -33,7 +33,7 @@ object Foo extends HasBuilder[Foo] {
 
   // Define objects corresponding to the case class constructor parameters:
   // X is a required parameter of type Int
-  object X extends Param[Int](5)
+  object X extends Param[Int]
 
   // Y is an optional parameter of type String with default value "5"
   object Y extends OptParam[String]("5")
