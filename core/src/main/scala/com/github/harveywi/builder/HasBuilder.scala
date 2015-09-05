@@ -92,15 +92,6 @@ trait HasBuilder[CC] extends HasBuilderParams {
   }
   
   /**
-   * Represents the correspondence between the `Param[_]`/`OptParam[_]` objects and the constructor parameters for case class `CC`.
-   * The ordering of the `Param[_]`/`OptParam[_]` objects must mimic the ordering of their corresponding constructor parameters.
-   *
-   * Initialize it using the `createFieldsContainer` helper method.
-   */
-//  type L <: HList
-//  def fields: L
-  
-  /**
    * Establishes a correspondence between the `Param[_]`/`OptParam[_]` objects and the constructor parameters for `CC`.
    * The ordering of the `Param[_]`/`OptParam[_]` objects must mimic the ordering of their corresponding constructor parameters.
    *
@@ -141,7 +132,6 @@ trait HasBuilder[CC] extends HasBuilderParams {
       new Builder(newParams)
     }
 
-    // mapper: shapeless.ops.hlist.Mapper[HasBuilder.this.GetParamValue.type,L]
     def build()
     (implicit
         paramValueExtractor: ParamValueExtractor[L, gen.Repr]
