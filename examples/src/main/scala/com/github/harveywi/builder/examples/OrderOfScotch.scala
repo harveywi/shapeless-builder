@@ -35,7 +35,7 @@ object OrderOfScotch {
     object Glass extends OptParam[Option[Glass]](None)
 
     // Establish HList <=> OrderOfScotch isomorphism
-    val isoContainer = createIsoContainer(apply _, unapply _)
+    val gen = Generic[OrderOfScotch]
     // Establish Param[_] <=> constructor parameter correspondence
     val fieldsContainer = createFieldsContainer(Brand :: Mode :: IsDouble :: Glass :: HNil)
     // That's all!
