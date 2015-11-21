@@ -1,0 +1,27 @@
+bin/
+
+*.class
+*.log
+
+# sbt specific
+.cache
+.cache-main
+.cache-tests
+.classpath
+.project
+.settings/*
+core/.settings/*
+examples/.settings/*
+.history
+.lib/
+.directory
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
