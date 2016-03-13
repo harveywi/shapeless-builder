@@ -46,8 +46,8 @@ object ShapelessBuilderBuild extends Build {
       ),
  
       libraryDependencies ++= Seq(
-        "com.chuusai" %% "shapeless" % "2.2.5" withSources(),
-        "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+        "com.chuusai" %% "shapeless" % "2.3.0" withSources(),
+        "org.scalatest" % "scalatest_2.11" % "2.2.6" % "test"
       )
     )
 }
