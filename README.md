@@ -50,7 +50,7 @@ object Foo extends HasBuilder[Foo] {
 
 // Now you can create instances of the case class by using method-chaining builder incantations
 import Foo._
-val test = Foo.builder.set(X, 42).set(Z, '#').build()
+val foo = Foo.builder.set(X, 42).set(Z, '#').build()
 
 // Yessssssss!
 assert(foo == Foo(42, "5", '#'), "Nooooooooooo!")
