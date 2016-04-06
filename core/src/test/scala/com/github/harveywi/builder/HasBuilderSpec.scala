@@ -22,7 +22,6 @@
 package com.github.harveywi.builder
 
 import org.scalatest._
-import org.scalatest.matchers.ShouldMatchers
 import shapeless._
 
 object HasBuilderSpec {
