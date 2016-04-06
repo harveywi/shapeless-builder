@@ -23,8 +23,6 @@ package com.github.harveywi.builder
 
 import shapeless._
 import shapeless.ops.hlist._
-import shapeless.ops.function.FnToProduct
-import shapeless.poly._
 
 /**
  * Enables method-chaining builders for case classes of type `CC`.
