@@ -101,7 +101,7 @@ trait HasBuilder[CC] extends HasBuilderParams {
    */
   def createFieldsContainer[L1 <: HList](fieldsIn: L1)(implicit lubConstraint: LUBConstraint[L1, Param[_]]) = new FieldsContainer {
     type L = L1
-    def fields = fieldsIn
+    def fields: L = fieldsIn
   }
   
   val fieldsContainer: FieldsContainer
@@ -126,7 +126,7 @@ trait HasBuilder[CC] extends HasBuilderParams {
     def set[V, K, T, Out <: HList](key: K, value: V)(implicit ev1: K <:< Param[T], ev2: V <:< T, selector: Selector[L, K],
       replacer: Replacer.Aux[L, K, PParam[V], (K, Out)]): Builder[Out] = {
       val newValue = new PParam[V](value)
-      val (oldValue, newParams) = replacer(fields, newValue)
+      val newParams = replacer(fields, newValue)._2
       new Builder(newParams)
     }
 
