@@ -71,17 +71,15 @@ trait HasBuilder[CC] extends HasBuilderParams {
   }
   
   object ParamValueExtractor {
-    implicit def caseHNil: ParamValueExtractor[HNil, HNil] = new ParamValueExtractor[HNil, HNil] {
-      def apply(in: HNil): HNil = HNil
+    implicit def caseHNil: ParamValueExtractor[HNil, HNil] = {
+      (HNil) => HNil
     }
-    
+
     implicit def casePParam[T, O, L1 <: HList, L2 <: HList](
         implicit ev: O <:< PParam[T],
         tailExtractor: ParamValueExtractor[L1, L2]
-     ): ParamValueExtractor[O :: L1, T :: L2] = new ParamValueExtractor[O :: L1, T :: L2] {
-      def apply(in: O :: L1): T :: L2 = {
-        in.head.value :: tailExtractor(in.tail)
-      }
+     ): ParamValueExtractor[O :: L1, T :: L2] =  {
+      (in: O :: L1) => in.head.value :: tailExtractor(in.tail)
     }
   }
   
