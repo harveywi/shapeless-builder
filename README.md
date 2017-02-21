@@ -84,10 +84,10 @@ object OrderOfScotch {
   case object Tulip extends Glass
 
   case class OrderOfScotch(
-    val brand: String,
-    val mode: Preparation,
-    val isDouble: Boolean,
-    val glass: Option[Glass])
+    brand: String,
+    mode: Preparation,
+    isDouble: Boolean,
+    glass: Option[Glass])
     
   object OrderOfScotch extends HasBuilder[OrderOfScotch] {
     object Brand extends Param[String]
