@@ -31,8 +31,8 @@ object ShapelessBuilderBuild extends Build {
   def commonSettings = 
     Seq(
       organization := "org.aylasoftware",
-      scalaVersion := "2.12.3",
-      crossScalaVersions := Seq(scalaVersion.value, "2.10.6", "2.11.11"),
+      scalaVersion := "2.12.4",
+      crossScalaVersions := Seq(scalaVersion.value, "2.10.7", "2.11.12", "2.13.0-M3"),
       scalacOptions := Seq(
           "-feature",
           "-language:higherKinds",
