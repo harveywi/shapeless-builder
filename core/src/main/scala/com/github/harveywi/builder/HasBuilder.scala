@@ -71,16 +71,14 @@ trait HasBuilder[CC] extends HasBuilderParams {
   }
   
   object ParamValueExtractor {
-    implicit def caseHNil: ParamValueExtractor[HNil, HNil] = {
-      (HNil) => HNil
-    }
+    implicit def caseHNil: ParamValueExtractor[HNil, HNil] =
+      HNil => HNil
 
     implicit def casePParam[T, O, L1 <: HList, L2 <: HList](
         implicit ev: O <:< PParam[T],
         tailExtractor: ParamValueExtractor[L1, L2]
-     ): ParamValueExtractor[O :: L1, T :: L2] =  {
+     ): ParamValueExtractor[O :: L1, T :: L2] =
       (in: O :: L1) => in.head.value :: tailExtractor(in.tail)
-    }
   }
   
   val gen: Generic[CC] {
@@ -97,10 +95,11 @@ trait HasBuilder[CC] extends HasBuilderParams {
    * @param fieldsIn an HList of `Param[_]`/`OptParam[_]` objects ordered in accordance with the constructor parameters for `CC`
    * @return a `FieldsContainer` representing the constructor parameters for `CC`
    */
-  def createFieldsContainer[L1 <: HList](fieldsIn: L1)(implicit lubConstraint: LUBConstraint[L1, Param[_]]) = new FieldsContainer {
-    type L = L1
-    def fields: L = fieldsIn
-  }
+  def createFieldsContainer[L1 <: HList](fieldsIn: L1)(implicit lubConstraint: LUBConstraint[L1, Param[_]]): FieldsContainer { type L = L1 } =
+    new FieldsContainer {
+      type L = L1
+      def fields: L = fieldsIn
+    }
   
   val fieldsContainer: FieldsContainer
 
