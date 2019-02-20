@@ -17,8 +17,8 @@ lazy val examples = (project
 def commonSettings =
   Seq(
     organization := "org.aylasoftware",
-    scalaVersion := "2.12.6",
-    crossScalaVersions := Seq(scalaVersion.value, "2.10.7", "2.11.12", "2.13.0-M4"),
+    scalaVersion := "2.12.8",
+    crossScalaVersions := Seq(scalaVersion.value, "2.10.7", "2.11.12", "2.13.0-M5"),
     scalacOptions := Seq(
       "-feature",
       "-language:higherKinds",
