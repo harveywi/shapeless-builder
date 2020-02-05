@@ -34,6 +34,6 @@ def commonSettings =
 
     libraryDependencies ++= Seq(
       "com.chuusai" %% "shapeless" % "2.3.3" withSources(),
-      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+      "org.scalatest" %% "scalatest" % "3.1.0" % "test"
     )
   )

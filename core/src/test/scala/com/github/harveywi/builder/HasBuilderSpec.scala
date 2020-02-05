@@ -21,7 +21,8 @@
 
 package com.github.harveywi.builder
 
-import org.scalatest._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import shapeless._
 
 object HasBuilderSpec {
@@ -92,7 +93,7 @@ object HasBuilderSpec {
   }
 }
 
-class HasBuilderSpec extends FlatSpec with Matchers {
+class HasBuilderSpec extends AnyFlatSpec with Matchers {
   import HasBuilderSpec._
   "When method chaining is not used, a builder for a case class with a single required parameter" should "generate the expected case class" in {
     val expected = TestInt(42)
