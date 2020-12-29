@@ -22,7 +22,7 @@
 package com.github.harveywi.builder
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers
+import org.scalatest.matchers.should.Matchers._
 import shapeless._
 
 object HasBuilderSpec {
@@ -93,7 +93,7 @@ object HasBuilderSpec {
   }
 }
 
-class HasBuilderSpec extends AnyFlatSpec with Matchers {
+class HasBuilderSpec extends AnyFlatSpec {
   import HasBuilderSpec._
   "When method chaining is not used, a builder for a case class with a single required parameter" should "generate the expected case class" in {
     val expected = TestInt(42)
@@ -124,9 +124,6 @@ class HasBuilderSpec extends AnyFlatSpec with Matchers {
 
     // Method chaining can be more succinct
     TestInt.builder.set(X, 42).build() should equal(expected)
-
-    // Chaining using point-free style
-    TestInt.builder set (X, 42) build () should equal(expected)
   }
 
   // Try out the optional parameters
@@ -151,12 +148,12 @@ class HasBuilderSpec extends AnyFlatSpec with Matchers {
     val x = 42
     val y = "Peanuts"
     val z = 'E'
-    builder set (X, x) set (Y, y) set (Z, z) build () should equal(expected)
-    builder set (X, x) set (Z, z) set (Y, y) build () should equal(expected)
-    builder set (Y, y) set (X, x) set (Z, z) build () should equal(expected)
-    builder set (Y, y) set (Z, z) set (X, x) build () should equal(expected)
-    builder set (Z, z) set (X, x) set (Y, y) build () should equal(expected)
-    builder set (Z, z) set (Y, y) set (X, x) build () should equal(expected)
+    builder.set(X, x).set(Y, y).set(Z, z).build() should equal(expected)
+    builder.set(X, x).set(Z, z).set(Y, y).build() should equal(expected)
+    builder.set(Y, y).set(X, x).set(Z, z).build() should equal(expected)
+    builder.set(Y, y).set(Z, z).set(X, x).build() should equal(expected)
+    builder.set(Z, z).set(X, x).set(Y, y).build() should equal(expected)
+    builder.set(Z, z).set(Y, y).set(X, x).build() should equal(expected)
   }
 
   // Test multiple optional parameters
@@ -182,45 +179,45 @@ class HasBuilderSpec extends AnyFlatSpec with Matchers {
 
     // No arguments omitted
     TestIntStringCharOptional(x, y, z) { expected =>
-      builder set (X, x) set (Y, y) set (Z, z) build () should equal(expected)
-      builder set (X, x) set (Z, z) set (Y, y) build () should equal(expected)
-      builder set (Y, y) set (X, x) set (Z, z) build () should equal(expected)
-      builder set (Y, y) set (Z, z) set (X, x) build () should equal(expected)
-      builder set (Z, z) set (X, x) set (Y, y) build () should equal(expected)
-      builder set (Z, z) set (Y, y) set (X, x) build () should equal(expected)
+      builder.set(X, x).set(Y, y).set(Z, z).build() should equal(expected)
+      builder.set(X, x).set(Z, z).set(Y, y).build() should equal(expected)
+      builder.set(Y, y).set(X, x).set(Z, z).build() should equal(expected)
+      builder.set(Y, y).set(Z, z).set(X, x).build() should equal(expected)
+      builder.set(Z, z).set(X, x).set(Y, y).build() should equal(expected)
+      builder.set(Z, z).set(Y, y).set(X, x).build() should equal(expected)
     }
 
     // x argument omitted
     TestIntStringCharOptional(dx, y, z) { expected =>
-      builder set (Y, y) set (Z, z) build () should equal(expected)
-      builder set (Z, z) set (Y, y) build () should equal(expected)
+      builder.set(Y, y).set(Z, z).build() should equal(expected)
+      builder.set(Z, z).set(Y, y).build() should equal(expected)
     }
 
     // y argument omitted
     TestIntStringCharOptional(x, dy, z) { expected =>
-      builder set (X, x) set (Z, z) build () should equal(expected)
-      builder set (Z, z) set (X, x) build () should equal(expected)
+      builder.set(X, x).set(Z, z).build() should equal(expected)
+      builder.set(Z, z).set(X, x).build() should equal(expected)
     }
 
     // z argument omitted
     TestIntStringCharOptional(x, y, dz) { expected =>
-      builder set (X, x) set (Y, y) build () should equal(expected)
-      builder set (Y, y) set (X, x) build () should equal(expected)
+      builder.set(X, x).set(Y, y).build() should equal(expected)
+      builder.set(Y, y).set(X, x).build() should equal(expected)
     }
 
     // x and y omitted
     TestIntStringCharOptional(dx, dy, z) { expected =>
-      builder set (Z, z) build () should equal(expected)
+      builder.set(Z, z).build() should equal(expected)
     }
 
     // x and z omitted
     TestIntStringCharOptional(dx, y, dz) { expected =>
-      builder set (Y, y) build () should equal(expected)
+      builder.set(Y, y).build() should equal(expected)
     }
 
     // y and z omitted
     TestIntStringCharOptional(x, dy, dz) { expected =>
-      builder set (X, x) build () should equal(expected)
+      builder.set(X, x).build() should equal(expected)
     }
 
     // All arguments omitted
@@ -256,27 +253,27 @@ class HasBuilderSpec extends AnyFlatSpec with Matchers {
     val builder = TestEither.builder
     
     TestEither(Left(42), None) should equal {
-      builder set(X, Left(42)) build()
+      builder.set(X, Left(42)).build()
     }
     
     TestEither(Right("Hello"), None) should equal {
-      builder set(X, Right("Hello")) build()
+      builder.set(X, Right("Hello")).build()
     }
     
     TestEither(Left(42), Some(Left(1000))) should equal {
-      builder set(Y, Some(Left(1000))) set(X, Left(42)) build()
+      builder.set(Y, Some(Left(1000))).set(X, Left(42)).build()
     }
     
     TestEither(Left(42), Some(Right("World"))) should equal {
-      builder set(Y, Some(Right("World"))) set(X, Left(42)) build()
+      builder.set(Y, Some(Right("World"))).set(X, Left(42)).build()
     }
     
     TestEither(Right("Hello"), Some(Left(1000))) should equal {
-      builder set(Y, Some(Left(1000))) set(X, Right("Hello")) build()
+      builder.set(Y, Some(Left(1000))).set(X, Right("Hello")).build()
     }
     
     TestEither(Right("Hello"), Some(Right("World"))) should equal {
-      builder set(Y, Some(Right("World"))) set(X, Right("Hello")) build() 
+      builder.set(Y, Some(Right("World"))).set(X, Right("Hello")).build()
     }
   }
 }

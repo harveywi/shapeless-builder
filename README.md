@@ -108,18 +108,8 @@ object OrderOfScotch {
     val order1 = OrderOfScotch.builder.set(Brand, "Takes").set(IsDouble, true).
       set(Glass, Some(Tall)).set(Mode, OnTheRocks).build()
 
-    // Point-free version of the above
-    val order2 = (OrderOfScotch.builder
-      set(Brand, "Takes")
-      set(IsDouble, true)
-      set(Glass, Some(Tall))
-      set(Mode, OnTheRocks)
-      build())
-
     assert(order1 == OrderOfScotch("Takes", OnTheRocks, true, Some(Tall)),
       "Time to get out the scotch...")
-    
-    assert(order1 == order2, "Traditional and point-free build results should be identical")
   }
 }
 ```
@@ -128,7 +118,7 @@ For more examples, see the test specifications [here](https://github.com/harveyw
 
 Prerequisites
 --------------------------------
-This library requires Scala 2.10 and shapeless 1.2.3.
+This library requires Scala 2.12 and shapeless 2.3.3.
 
 Scaladoc
 --------------------------------
